@@ -152,22 +152,16 @@ pop1 %>% group_by(breedid) %>% summarize(train = mean(train, na.rm=TRUE)) %>% ar
 # load package
 install.packages('devtools')
 devtools::install_github("laresbernardo/lares")
-
 install.packages("lares")
 lares::on()
 library(lares)
-
-
 corr_cross(dat, pop1,
            max_pvalue = 0.05, # display only significant correlations (at 5% level)
            top = 10 # display top 10 couples of variables (by correlation coefficient)
 )
-
 corr_cross(pop1, plot = TRUE, max = 1, top = 25, ignore = NA,
            contains = NA, rm.na = FALSE, dummy = TRUE)
-
 corr_var(pop1)
-
 #install.packages("ggstatsplot")
 library(ggstatsplot)
 install.packages("ggcorrplot")
@@ -177,11 +171,11 @@ ggstatsplot::ggcorrmat(data = pop1,
   type = "parametric", # parametric for Pearson, nonparametric for Spearman's correlation
   colors = c("darkred", "white", "steelblue") # change default colors
 )
-
 ggcorrmat(
   data = gapminder_2007, ## data from which variable is to be taken
   cor.vars = lifeExp:gdpPercap ## specifying correlation matrix variables
 )
+
 
 
 qplot(factor(newgroup), data=pop1, geom="bar",
@@ -222,6 +216,7 @@ p1 + geom_point(aes(color = breedid)) + geom_smooth(method = "lm", se=FALSE, col
 )  
 
 
+#boxplot of where acquired / sex
 box3 <- pop1 %>% ggplot(aes(y=train, x=whereacquired, fill=sex)) + geom_boxplot()
 box3 + theme(
   plot.title = element_text(color="black", size=14, face="bold.italic"),
@@ -233,3 +228,5 @@ box3 + theme(
 pop1$sex <- factor(pop1$sex, 
                  levels=c(0,1), 
                  labels=c("male","female"))
+
+#update
